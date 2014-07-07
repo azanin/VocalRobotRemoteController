@@ -3,5 +3,21 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="it.azanin.remotevocalrobotcontroller.MainActivity"
-    tools:ignore="MergeRootFrame" />
+    tools:context="com.example.it.azanin.remotevocalrobotcontroller.MainActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/sendCommandButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send Command" />
+
+    </LinearLayout>
+
+</FrameLayout>
+
