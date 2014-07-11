@@ -29,6 +29,7 @@ public class DirectionVoiceActionCommand implements VoiceActionCommand
 		else
 			directionWordMatcher = new WordMatcher(commandWords); //match only if users spell correctly words*/
 		directionValueWordMatcher = new WordMatcher(SysKb.vocalDirectionValueCommand);
+		
 		this.executor = executor;
 
 	}

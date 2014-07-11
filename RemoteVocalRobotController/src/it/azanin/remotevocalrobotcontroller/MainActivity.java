@@ -6,6 +6,7 @@ import java.util.List;
 import it.azanin.remotevocalrobotcontroller.executor.RobotVoiceActionExecutor;
 import it.azanin.remotevocalrobotcontroller.robotproxy.RobotProxy;
 import it.azanin.remotevocalrobotcontroller.voicecommands.DirectionVoiceActionCommand;
+import it.azanin.remotevocalrobotcontroller.voicecommands.RobotVoiceCommand;
 import it.azanin.speech.SpeechRecognizingAndSpeakingActivity;
 import it.azanin.speech.voiceaction.MultiCommandVoiceAction;
 import it.azanin.speech.voiceaction.VoiceAction;
@@ -64,12 +65,12 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 	
 	
 	private VoiceAction makeSendCommandVoiceAction() {
-		VoiceActionCommand directionCommand = new DirectionVoiceActionCommand(executor,false);
-		VoiceActionCommand directionCommandRelaxed = new DirectionVoiceActionCommand(executor,true);
+		VoiceActionCommand robotVoiceCommand = new RobotVoiceCommand(executor,false);
+		VoiceActionCommand robotVoiceCommandRelaxed = new RobotVoiceCommand(executor,true);
 
-		VoiceAction sendVoiceAction = new MultiCommandVoiceAction(Arrays.asList(directionCommand,directionCommandRelaxed));
+		VoiceAction sendVoiceAction = new MultiCommandVoiceAction(Arrays.asList(robotVoiceCommand,robotVoiceCommandRelaxed));
 		sendVoiceAction.setNotUnderstood(new WhyNotUnderstoodListener(this, executor, false));
-		sendVoiceAction.setPrompt("Dimmi la direzione");
+		sendVoiceAction.setPrompt("Dimmi il comando");
 		return sendVoiceAction;
 	}
 
