@@ -22,7 +22,8 @@ public class RobotVoiceActionExecutor extends VoiceActionExecutor {
 	public void executeRobotVoiceCommand(String direction, String speed)
 	{
 		IRobotCommand robotCommand = MyRobotCommandFactory.createRobotCommandFromString(direction, speed);
-		new RobotCommandSender(robot, robotCommand).start();
+		new RobotCommandSender(this,robot, robotCommand).start();
+		
 	
 		
 	}
@@ -31,15 +32,19 @@ public class RobotVoiceActionExecutor extends VoiceActionExecutor {
 	{
 		private IRobotCommand command;
 		private IRobot proxy;
+		private RobotVoiceActionExecutor executor;
 		
-		public RobotCommandSender(IRobot proxy, IRobotCommand command) {
+		public RobotCommandSender(RobotVoiceActionExecutor executor, IRobot proxy, IRobotCommand command) {
 			this.command = command;
 			this.proxy = proxy;
+			this.executor = executor;
 		}
 		@Override
 		public void run() {
 			Log.d(ROBOTVOICEACTIONEXECUTOR, "sending command");
 			proxy.execute(command);
+			executor.speak("Comando inviato.");
+			
 
 		}
 	}

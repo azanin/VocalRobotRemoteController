@@ -6,7 +6,6 @@
 	<classpathentry kind="lib" path="libs/iotRobot.jar"/>
 	<classpathentry kind="lib" path="libs/uniboInterfaces.jar"/>
 	<classpathentry kind="lib" path="libs/unibonoawtsupports.jar"/>
-	<classpathentry kind="lib" path="libs/vocallibrary.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>

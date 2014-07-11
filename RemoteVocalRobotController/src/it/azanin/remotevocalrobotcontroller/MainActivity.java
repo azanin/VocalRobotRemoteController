@@ -57,8 +57,6 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 			public void onClick(View v) {
 				if(proxy != null)
 					executor.execute(sendCommandVoiceAction);
-				else
-					executor.speak("Non sei connesso al robot");
 			}
 		});
 	}
@@ -71,8 +69,7 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 
 		VoiceAction sendVoiceAction = new MultiCommandVoiceAction(Arrays.asList(directionCommand,directionCommandRelaxed));
 		sendVoiceAction.setNotUnderstood(new WhyNotUnderstoodListener(this, executor, false));
-		sendVoiceAction.setPrompt("Tell me the direction command");
-
+		sendVoiceAction.setPrompt("Dimmi la direzione");
 		return sendVoiceAction;
 	}
 
