@@ -8,7 +8,6 @@ import it.unibo.iot.models.robotCommands.RobotForward;
 import it.unibo.iot.models.robotCommands.RobotLeft;
 import it.unibo.iot.models.robotCommands.RobotRight;
 import it.unibo.iot.models.robotCommands.RobotStop;
-import it.unibo.iot.models.robotCommands.SysKB;
 
 public class MyRobotCommandFactory extends RobotCommandFactory {
 	

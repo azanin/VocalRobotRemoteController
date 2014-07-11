@@ -1,4 +1,5 @@
 package it.azanin.remotevocalrobotcontroller.robotproxy;
+import android.util.Log;
 import it.azanin.remotevocalrobotcontroller.utils.SysKb;
 import it.unibo.is.interfaces.IBasicEnvAwt;
 import it.unibo.is.interfaces.protocols.IConnInteraction;
@@ -9,6 +10,8 @@ import it.unibo.supports.FactoryProtocol;
 import it.unibo.system.SituatedPlainObject;
 
 public class RobotProxy extends SituatedPlainObject implements IRobot {
+	
+	private final static String ROBOTPROXY = "RobotProxy";
 	
 	protected IConnInteraction conn;
 	protected static IBasicEnvAwt dummy = null; //TRUCCO
@@ -45,12 +48,16 @@ public class RobotProxy extends SituatedPlainObject implements IRobot {
 		FactoryProtocol factoryP = new FactoryProtocol(outView,
 				SysKb.protocol, "RobotProxy");
 		//conn = factoryP.createClientProtocolSupport(hostName, port);
+		Log.d(ROBOTPROXY,"Connecting to Robot");
 		conn=factoryP.createClientProtocolSupport(SysKb.hostName, SysKb.port);
+		Log.d(ROBOTPROXY, "Connected to " + SysKb.hostName + " port: " + SysKb.port);
 	}
 
 	
 	public void terminate() {
 		try {
+			println("Connection closed ");
+
 			if (conn != null)
 				conn.closeConnection();
 			conn=null;
@@ -64,12 +71,16 @@ public class RobotProxy extends SituatedPlainObject implements IRobot {
 		try {
 			terminate();
 			if (conn == null)
+			{
 				connectToRobot();
+			}
 			String msg = command.getStringRep();
 			println("SEND to the remote robot THE COMMAND " + msg);
 			conn.sendALine(msg);
 			Thread.sleep(2000);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			conn=null;
 			println("ERROR   " + e.getMessage());
 		}

@@ -3,14 +3,14 @@ package it.azanin.remotevocalrobotcontroller;
 import java.util.Arrays;
 import java.util.List;
 
+import it.azanin.remotevocalrobotcontroller.executor.RobotVoiceActionExecutor;
 import it.azanin.remotevocalrobotcontroller.robotproxy.RobotProxy;
 import it.azanin.remotevocalrobotcontroller.voicecommands.DirectionVoiceActionCommand;
-import root.gast.speech.SpeechRecognizingAndSpeakingActivity;
-import root.gast.speech.voiceaction.MultiCommandVoiceAction;
-import root.gast.speech.voiceaction.VoiceAction;
-import root.gast.speech.voiceaction.VoiceActionCommand;
-import root.gast.speech.voiceaction.VoiceActionExecutor;
-import root.gast.speech.voiceaction.WhyNotUnderstoodListener;
+import it.azanin.speech.SpeechRecognizingAndSpeakingActivity;
+import it.azanin.speech.voiceaction.MultiCommandVoiceAction;
+import it.azanin.speech.voiceaction.VoiceAction;
+import it.azanin.speech.voiceaction.VoiceActionCommand;
+import it.azanin.speech.voiceaction.WhyNotUnderstoodListener;
 import android.speech.tts.TextToSpeech;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +24,7 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 
 	private static final String TAG = "SpeechRecognizerActivity";
 
-	private VoiceActionExecutor executor;
+	private RobotVoiceActionExecutor executor;
 	private VoiceAction sendCommandVoiceAction;
 	private RobotProxy proxy;
 
@@ -43,11 +43,9 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 
 	private void initDialog()
 	{
-		if (executor == null)
-		{
-			executor = new VoiceActionExecutor(this);
-		}
 		proxy = new RobotProxy();
+		if (executor == null)
+			executor = new RobotVoiceActionExecutor(this, proxy);
 		sendCommandVoiceAction = makeSendCommandVoiceAction();
 	}
 
@@ -68,8 +66,8 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 	
 	
 	private VoiceAction makeSendCommandVoiceAction() {
-		VoiceActionCommand directionCommand = new DirectionVoiceActionCommand(this, executor,proxy,false);
-		VoiceActionCommand directionCommandRelaxed = new DirectionVoiceActionCommand(this,executor,proxy,true);
+		VoiceActionCommand directionCommand = new DirectionVoiceActionCommand(executor,false);
+		VoiceActionCommand directionCommandRelaxed = new DirectionVoiceActionCommand(executor,true);
 
 		VoiceAction sendVoiceAction = new MultiCommandVoiceAction(Arrays.asList(directionCommand,directionCommandRelaxed));
 		sendVoiceAction.setNotUnderstood(new WhyNotUnderstoodListener(this, executor, false));

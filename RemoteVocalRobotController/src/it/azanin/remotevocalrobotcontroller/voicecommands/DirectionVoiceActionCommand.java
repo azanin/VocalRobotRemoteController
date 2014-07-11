@@ -1,33 +1,27 @@
 package it.azanin.remotevocalrobotcontroller.voicecommands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import it.azanin.remotevocalrobotcontroller.robotproxy.RobotProxy;
+import it.azanin.remotevocalrobotcontroller.executor.RobotVoiceActionExecutor;
 import it.azanin.remotevocalrobotcontroller.utils.SysKb;
-import it.unibo.iot.models.robotCommands.IRobotCommand;
-import it.unibo.iot.models.robotCommands.RobotCommandFactory;
-import android.content.Context;
-import root.gast.speech.text.WordList;
-import root.gast.speech.text.match.SoundsLikeThresholdWordMatcher;
-import root.gast.speech.text.match.WordMatcher;
-import root.gast.speech.voiceaction.MultiCommandVoiceAction;
-import root.gast.speech.voiceaction.VoiceActionCommand;
-import root.gast.speech.voiceaction.VoiceActionExecutor;
-import root.gast.speech.voiceaction.WhyNotUnderstoodListener;
+import it.azanin.speech.text.WordList;
+import it.azanin.speech.text.match.WordMatcher;
+import it.azanin.speech.voiceaction.MultiCommandVoiceAction;
+import it.azanin.speech.voiceaction.VoiceActionCommand;
+
+
 
 public class DirectionVoiceActionCommand implements VoiceActionCommand
 {
+	@SuppressWarnings("unused")
 	private static final String TAG = "DirectionVoiceActionCommand";
 
-	private Context context;
-	private VoiceActionExecutor executor;
+	private RobotVoiceActionExecutor executor;
 	//	private WordMatcher directionWordMatcher;
 	private WordMatcher directionValueWordMatcher;
-	private RobotProxy robotProxy;
 
-	public DirectionVoiceActionCommand(Context context, VoiceActionExecutor executor,RobotProxy robotProxy, boolean relaxed) {
+	public DirectionVoiceActionCommand(RobotVoiceActionExecutor executor, boolean relaxed) {
 
 		/*	String[] commandWords = SysKb.vocalDirectionCommand;
 		if(relaxed)
@@ -35,9 +29,7 @@ public class DirectionVoiceActionCommand implements VoiceActionCommand
 		else
 			directionWordMatcher = new WordMatcher(commandWords); //match only if users spell correctly words*/
 		directionValueWordMatcher = new WordMatcher(SysKb.vocalDirectionValueCommand);
-		this.context = context;
 		this.executor = executor;
-		this.robotProxy = robotProxy;
 
 	}
 
@@ -58,7 +50,7 @@ public class DirectionVoiceActionCommand implements VoiceActionCommand
 			if(directionValueWordMatcher.isIn(command))
 			{
 				//starting build speed voice command
-				SpeedVoiceActionCommand speedVoiceActionCommand = new SpeedVoiceActionCommand(context,executor,robotProxy,command);
+				SpeedVoiceActionCommand speedVoiceActionCommand = new SpeedVoiceActionCommand(executor,command);
 				String calPromptFormat = "Quale velocità per %1$s?";
 				String calPrompt = String.format(calPromptFormat, command);
 				List<VoiceActionCommand> lists = new ArrayList<VoiceActionCommand>();
@@ -72,11 +64,7 @@ public class DirectionVoiceActionCommand implements VoiceActionCommand
 				understood = true;
 				executor.execute(responseAction);
 
-
 			}
-
-
-
 		}
 
 
