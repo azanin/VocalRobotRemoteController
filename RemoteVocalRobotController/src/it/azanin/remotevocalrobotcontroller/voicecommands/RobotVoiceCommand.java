@@ -29,16 +29,22 @@ public class RobotVoiceCommand implements VoiceActionCommand{
 		if(directionValueWordMatcher.isIn(heard.getWords()))
 		{
 			String direction = heard.getWords()[0].trim();
-
-
-			String freeText = heard.getStringAfter(directionValueWordMatcher.isInAt(heard.getWords()));
-			if(speedValueWordMatcher.isIn(freeText.trim()))
+			if(direction.equals("stop"))
 			{
-				String speed = freeText;
 				understood = true;
-				executor.executeRobotVoiceCommand(direction, speed);
-			}			
+				executor.executeRobotVoiceCommand(direction, "bassa");
 
+			}
+			else
+			{
+				String freeText = heard.getWords()[1];
+				if(speedValueWordMatcher.isIn(freeText.trim()))
+				{
+					String speed = freeText;
+					understood = true;
+					executor.executeRobotVoiceCommand(direction, speed);
+				}			
+			}
 		}
 
 

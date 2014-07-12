@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+  <PreferenceCategory
+      android:title="Hosts parameters" >
+      <EditTextPreference 
+          android:key="PREF_HOST"
+          android:title="Host"
+          android:dialogMessage="Insert the host address"
+          android:positiveButtonText="ok"
+          android:negativeButtonText="annulla"
+          android:defaultValue="localhost"
+          />
+      <EditTextPreference 
+          android:key="PREF_PORT"
+          android:title="Port"
+          android:dialogMessage="Insert the port"
+          android:positiveButtonText="ok"
+          android:negativeButtonText="annulla"
+          android:defaultValue="8030"/> 
+      
+  </PreferenceCategory> 
+
+</PreferenceScreen>

@@ -20,7 +20,7 @@ public class MyRobotCommandFactory extends RobotCommandFactory {
 		robotCommandStringRep = robotCommandStringRep.toLowerCase();
 		
 		
-		if (robotCommandStringRep.contains("avanti")) {
+		if (robotCommandStringRep.contains("avanti")|robotCommandStringRep.contains("dritto")) {
 			return new RobotForward(robotSpeed);
 		}
 		if (robotCommandStringRep.contains("indietro")) {

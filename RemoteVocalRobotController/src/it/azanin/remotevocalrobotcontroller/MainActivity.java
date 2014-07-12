@@ -13,7 +13,10 @@ import it.azanin.speech.voiceaction.VoiceAction;
 import it.azanin.speech.voiceaction.VoiceActionCommand;
 import it.azanin.speech.voiceaction.WhyNotUnderstoodListener;
 import android.speech.tts.TextToSpeech;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,14 +40,17 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		hookButtons();
-		initDialog();
 
 
 	}
 
 	private void initDialog()
 	{
-		proxy = new RobotProxy();
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String hostname = preferences.getString("PREF_HOST", "localhost");
+		Integer port = Integer.parseInt(preferences.getString("PREF_PORT", "8030"));
+		
+		proxy = new RobotProxy(hostname,port);
 		if (executor == null)
 			executor = new RobotVoiceActionExecutor(this, proxy);
 		sendCommandVoiceAction = makeSendCommandVoiceAction();
@@ -60,6 +66,36 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 					executor.execute(sendCommandVoiceAction);
 			}
 		});
+	}
+	
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		//initDialog();
+
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		//SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		//String hostname = preferences.getString("PREF_HOST", "localhost");
+		//Integer port = Integer.parseInt(preferences.getString("PREF_PORT", "8030"));
+		//proxy = new RobotProxy(hostname,port);
+		initDialog();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		proxy = null;
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		proxy = null;
 	}
 
 	
@@ -86,6 +122,7 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			startActivity(new Intent(this,SettingsActivity.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -101,7 +138,6 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 
 	@Override
 	protected void receiveWhatWasHeard(List<String> heard,float[] confidenceScores) {
-
 		Log.d(TAG, "received " + heard.size());
 		executor.handleReceiveWhatWasHeard(heard, confidenceScores);
 	}

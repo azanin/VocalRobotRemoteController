@@ -10,10 +10,10 @@ public class RobotSpeedFactory {
 		
 		robotCommandStringRep = robotCommandStringRep.toLowerCase();
 		
-		if (robotCommandStringRep.contains("bassa")) {
+		if (robotCommandStringRep.contains("bassa")| robotCommandStringRep.contains("lenta")) {
 			return SysKB.ROBOT_SPEED_LOW;
 		}
-		if (robotCommandStringRep.contains("alta")) {
+		if (robotCommandStringRep.contains("alta")|robotCommandStringRep.contains("veloce")) {
 			return SysKB.ROBOT_SPEED_HIGH;
 		}
 		if(robotCommandStringRep.contains("media"))

@@ -42,8 +42,9 @@ public class RobotVoiceActionExecutor extends VoiceActionExecutor {
 		@Override
 		public void run() {
 			Log.d(ROBOTVOICEACTIONEXECUTOR, "sending command");
+			executor.speak("eseguo il comando");
+
 			proxy.execute(command);
-			executor.speak("Comando inviato.");
 			
 
 		}
