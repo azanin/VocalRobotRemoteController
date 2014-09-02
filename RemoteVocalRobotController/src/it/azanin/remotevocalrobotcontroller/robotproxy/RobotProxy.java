@@ -49,8 +49,8 @@ public class RobotProxy extends SituatedPlainObject implements IRobot {
 				SysKb.protocol, "RobotProxy");
 		//conn = factoryP.createClientProtocolSupport(hostName, port);
 		Log.d(ROBOTPROXY,"Connecting to Robot");
-		conn=factoryP.createClientProtocolSupport(SysKb.hostName, SysKb.port);
-		Log.d(ROBOTPROXY, "Connected to " + SysKb.hostName + " port: " + SysKb.port);
+		conn=factoryP.createClientProtocolSupport(hostName, port);
+		Log.d(ROBOTPROXY, "Connected to " + hostName + " port: " + port);
 	}
 
 	

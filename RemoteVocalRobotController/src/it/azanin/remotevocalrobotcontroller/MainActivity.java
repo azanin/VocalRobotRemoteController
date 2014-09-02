@@ -49,6 +49,7 @@ public class MainActivity extends SpeechRecognizingAndSpeakingActivity {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		String hostname = preferences.getString("PREF_HOST", "localhost");
 		Integer port = Integer.parseInt(preferences.getString("PREF_PORT", "8030"));
+		Log.d("MainActivity", hostname + " "+port);
 		
 		proxy = new RobotProxy(hostname,port);
 		if (executor == null)
