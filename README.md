@@ -1,8 +1,6 @@
 VocalRobotRemoteController
 ==========================
 
-Repository for my Android project VocalRobotRemoteController
-
 Android application to control a custom robot (builded in my university) with vocal commands.
 
 Particularly I used a custom library (GastLibrary) to model the workflow of vocal commands.
